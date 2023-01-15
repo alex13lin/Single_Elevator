@@ -29,7 +29,7 @@ class BtnsForElevatorSys(IBtnForElevator):
 # 電梯內按鈕class
 class BtnsInElevator(BtnsForElevatorSys):
     def __init__(self):
-        super().__init__("BtnInElevator()")
+        super().__init__("BtnsInElevator()")
 
     def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
         elevator_info.direct = "unknown"
@@ -47,7 +47,7 @@ class BtnsInElevator(BtnsForElevatorSys):
 # 樓層的向上按鈕
 class BtnsOnStairUp(BtnsForElevatorSys):
     def __init__(self):
-        super().__init__("BtnOnStairUp()")
+        super().__init__("BtnsOnStairUp()")
 
     def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
         elevator_info.direct = "up"
@@ -65,7 +65,7 @@ class BtnsOnStairUp(BtnsForElevatorSys):
 # 樓層的向下按鈕
 class BtnsOnStairDown(BtnsForElevatorSys):
     def __init__(self):
-        super().__init__("BtnOnStairDown()")
+        super().__init__("BtnsOnStairDown()")
 
     def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
         elevator_info.direct = "down"
