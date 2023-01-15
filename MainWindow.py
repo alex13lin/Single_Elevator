@@ -1,4 +1,4 @@
-from BtnForElevator import BtnInElevator, BtnOnStairUp, BtnOnStairDown
+from BtnForElevator import BtnsInElevator, BtnsOnStairUp, BtnsOnStairDown
 from ObserverPattern import ConcreteSubject
 import tkinter as tk
 
@@ -11,9 +11,9 @@ class MainWindow(tk.Tk):
         self.geometry('500x700+1000+20')
         self.resizable(False, False)
 
-        self.btn_in_elevator = BtnInElevator()
-        self.btn_on_stair_up = BtnOnStairUp()
-        self.btn_on_stair_down = BtnOnStairDown()
+        self.btns_in_elevator = BtnsInElevator()
+        self.btns_on_stair_up = BtnsOnStairUp()
+        self.btns_on_stair_down = BtnsOnStairDown()
         self.elevator_subject = ConcreteSubject()
         self.attach_elevator_subject()
         self.run()
@@ -21,9 +21,9 @@ class MainWindow(tk.Tk):
         self.mainloop()
 
     def attach_elevator_subject(self):
-        self.elevator_subject.attach(self.btn_in_elevator)
-        self.elevator_subject.attach(self.btn_on_stair_up)
-        self.elevator_subject.attach(self.btn_on_stair_down)
+        self.elevator_subject.attach(self.btns_in_elevator)
+        self.elevator_subject.attach(self.btns_on_stair_up)
+        self.elevator_subject.attach(self.btns_on_stair_down)
 
     def run(self):
         self.elevator_subject.create_button(6)
