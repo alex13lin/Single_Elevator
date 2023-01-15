@@ -1,6 +1,6 @@
 class ElevatorInfo(object):
     def __init__(self):
-        self.highest = 0
+        self.highest_stair = 0
         self.direct = ''
 
 

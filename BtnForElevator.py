@@ -1,5 +1,6 @@
 from IBtnForElevator import IBtnForElevator
 from NewPrint import NewPrint as nPrint
+from TkElevator import TkElevator
 from model import ElevatorInfo, BtnElevatorDetail
 import tkinter as tk
 
@@ -9,16 +10,11 @@ class BtnsForElevatorSys(IBtnForElevator):
     def __init__(self, func_name):
         self.func_name = func_name
         self.all_buttons = []
-        self.direct = 0
 
-    def create_button(self, highest_stair, btn_style: BtnElevatorDetail = None, direct=None):
+    def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
         nPrint(f"    BtnForElevator.py Log: {self.func_name}.create_button()")
-        self.direct = direct
-        for stair in range(highest_stair):
-            text = stair + 1 if btn_style.text is None else btn_style.text
-            btn = tk.Button(text=text, bg="gray", height=btn_style.height, width=btn_style.width,
-                            font=('Arial', btn_style.fontsize))
-            btn.place(x=btn_style.x, y=btn_style.y - btn_style.y_space * stair)
+        for stair in range(elevator_info.highest_stair):
+            btn = TkElevator(elevator_info, btn_style, stair).create_button()
             self.all_buttons.append(btn)
 
     def get_all_buttons(self):
@@ -35,7 +31,8 @@ class BtnsInElevator(BtnsForElevatorSys):
     def __init__(self):
         super().__init__("BtnInElevator()")
 
-    def create_button(self, highest_stair, btn_style: BtnElevatorDetail = None, direct="unknown"):
+    def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
+        elevator_info.direct = "unknown"
         btn_style = BtnElevatorDetail() if btn_style is None else btn_style
         btn_style.height = 2
         btn_style.width = 5
@@ -44,7 +41,7 @@ class BtnsInElevator(BtnsForElevatorSys):
         btn_style.x = 400
         btn_style.y = 600
         btn_style.y_space = 60
-        super().create_button(highest_stair, btn_style, direct)
+        super().create_button(elevator_info, btn_style)
 
 
 # 樓層的向上按鈕
@@ -52,7 +49,8 @@ class BtnsOnStairUp(BtnsForElevatorSys):
     def __init__(self):
         super().__init__("BtnOnStairUp()")
 
-    def create_button(self, highest_stair, btn_style: BtnElevatorDetail = None, direct="up"):
+    def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
+        elevator_info.direct = "up"
         btn_style = BtnElevatorDetail() if btn_style is None else btn_style
         btn_style.height = 2
         btn_style.width = 5
@@ -61,7 +59,7 @@ class BtnsOnStairUp(BtnsForElevatorSys):
         btn_style.x = 50
         btn_style.y = 580
         btn_style.y_space = 100
-        super().create_button(highest_stair, btn_style, direct)
+        super().create_button(elevator_info, btn_style)
 
 
 # 樓層的向下按鈕
@@ -69,7 +67,8 @@ class BtnsOnStairDown(BtnsForElevatorSys):
     def __init__(self):
         super().__init__("BtnOnStairDown()")
 
-    def create_button(self, highest_stair, btn_style: BtnElevatorDetail = None, direct="down"):
+    def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
+        elevator_info.direct = "down"
         btn_style = BtnElevatorDetail() if btn_style is None else btn_style
         btn_style.height = 2
         btn_style.width = 5
@@ -78,4 +77,4 @@ class BtnsOnStairDown(BtnsForElevatorSys):
         btn_style.x = 120
         btn_style.y = 580
         btn_style.y_space = 100
-        super().create_button(highest_stair, btn_style, direct)
+        super().create_button(elevator_info, btn_style)

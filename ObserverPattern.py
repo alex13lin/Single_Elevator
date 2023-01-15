@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 from typing import List
 from NewPrint import NewPrint as NPrint
 from IBtnForElevator import IBtnForElevator
+from model import ElevatorInfo
 
 
 class Subject(object, metaclass=ABCMeta):
@@ -56,7 +57,9 @@ class ConcreteSubject(Subject):
 
     def create_button(self, highest_stair):
         for observer in self._observers:
-            observer.create_button(highest_stair)
+            elevator_info = ElevatorInfo()
+            elevator_info.highest_stair = highest_stair
+            observer.create_button(elevator_info)
 
     def print_all_buttons(self):
         for observer in self._observers:

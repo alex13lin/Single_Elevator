@@ -5,7 +5,7 @@ from model import ElevatorInfo, BtnElevatorDetail
 class IBtnForElevator(object, metaclass=ABCMeta):
 
     @abstractmethod
-    def create_button(self, highest_stair, btn_style: BtnElevatorDetail = None, direct=None):
+    def create_button(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail = None):
         pass
 
     @abstractmethod
