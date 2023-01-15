@@ -1,7 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 from NewPrint import NewPrint as NPrint
-
 from IBtnForElevator import IBtnForElevator
 
 
