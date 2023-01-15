@@ -26,7 +26,7 @@ class MainWindow(tk.Tk):
         self.elevator_subject.attach(self.btns_on_stair_down)
 
     def run(self):
-        self.elevator_subject.create_button(6)
+        self.elevator_subject.create_button()
         # self.elevator_subject.print_all_buttons()
 
 

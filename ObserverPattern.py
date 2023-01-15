@@ -55,11 +55,9 @@ class ConcreteSubject(Subject):
 
         print("Subject: Notifying observers...")
 
-    def create_button(self, highest_stair):
+    def create_button(self):
         for observer in self._observers:
-            elevator_info = ElevatorInfo()
-            elevator_info.highest_stair = highest_stair
-            observer.create_button(elevator_info)
+            observer.create_button()
 
     def print_all_buttons(self):
         for observer in self._observers:
