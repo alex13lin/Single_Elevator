@@ -27,7 +27,7 @@ class MainWindow(tk.Tk):
 
     def run(self):
         self.elevator_subject.create_button(6)
-        self.elevator_subject.print_all_buttons()
+        # self.elevator_subject.print_all_buttons()
 
 
 if __name__ == '__main__':
