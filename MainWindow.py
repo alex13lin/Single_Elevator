@@ -1,5 +1,6 @@
 from BtnForElevator import BtnsInElevator, BtnsOnStairUp, BtnsOnStairDown
 from ObserverPattern import ConcreteSubject
+from ElevatorController import Process
 import tkinter as tk
 
 
@@ -11,23 +12,41 @@ class MainWindow(tk.Tk):
         self.geometry('500x700+1000+20')
         self.resizable(False, False)
 
+        self.process = Process()
         self.btns_in_elevator = BtnsInElevator()
         self.btns_on_stair_up = BtnsOnStairUp()
         self.btns_on_stair_down = BtnsOnStairDown()
         self.elevator_subject = ConcreteSubject()
-        self.attach_elevator_subject()
-        self.run()
 
-        # self.mainloop()
+        self.start()
+
+        a = 1
+        if a == 0:
+            return
+
+        self.after(10, self.refresh_window)
+
+        self.mainloop()
+
+    def refresh_window(self):
+        self.run()
+        self.after(10, self.refresh_window)
 
     def attach_elevator_subject(self):
         self.elevator_subject.attach(self.btns_in_elevator)
         self.elevator_subject.attach(self.btns_on_stair_up)
         self.elevator_subject.attach(self.btns_on_stair_down)
 
-    def run(self):
+    def start(self):
+        self.attach_elevator_subject()
         self.elevator_subject.create_button()
-        # self.elevator_subject.print_all_buttons()
+        self.run()
+
+    def run(self):
+        self.process.btns_in_elevator_info = self.btns_in_elevator.get_all_buttons_info()
+        self.process.btns_on_stair_up_info = self.btns_on_stair_up.get_all_buttons_info()
+        self.process.btns_on_stair_down_info = self.btns_on_stair_down.get_all_buttons_info()
+        self.process.run()
 
 
 if __name__ == '__main__':

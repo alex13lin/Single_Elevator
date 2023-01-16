@@ -1,16 +1,16 @@
 import logging
 import inspect
 
+DEBUG = False
+
 
 class Log(object):
     def __init__(self):
-        self.is_add = False
-        self.status = True
         self.logger = None
-        pass
 
     def log(self):
-        self.status = False
+        if not DEBUG:
+            return
         self.logger = logging.getLogger(inspect.stack()[1].frame.f_code.co_name)
         self.logger.setLevel(logging.DEBUG)
         self.add_handler(self.logger.handlers)
@@ -23,7 +23,7 @@ class Log(object):
             return
         # file_handler = logging.FileHandler('test.log')
         handler = logging.StreamHandler()
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter('%(asctime)s - %(message)s')
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
-        self.is_add = True

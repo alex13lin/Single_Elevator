@@ -4,6 +4,7 @@ from log import Log
 
 IS_PRESSED = True
 NOT_PRESSED = False
+UNASSIGNED = 0
 
 
 class BtnElevator(object):
@@ -22,11 +23,6 @@ class BtnElevator(object):
         self.btn.place(x=btn_style.x, y=btn_style.y - btn_style.y_space * btn_info.stair)
         self.btn.config(command=self.update_btn)
 
-    def update_btn(self):
-        self.log.log()
-        self.btn_info.state = not self.btn_info.state
-        self.change_btn_color()
-
     def set_btn_info(self, btn_info: BtnElevatorInfo):
         self.log.log()
         self.btn_info.state = False
@@ -34,9 +30,18 @@ class BtnElevator(object):
         self.btn_info.stair = btn_info.stair + 1
         self.btn_info.the_type = btn_info.the_type
 
+    def update_btn(self):
+        self.log.log()
+        self.btn_info.state = not self.btn_info.state
+        self.btn_info.direct = UNASSIGNED if self.btn_info.the_type is "elevator" else self.btn_info.direct
+        self.change_btn_color()
+
     def change_btn_color(self):
         self.log.log()
         if self.btn_info.state is IS_PRESSED:
             self.btn.config(bg='pink')
         elif self.btn_info.state is NOT_PRESSED:
             self.btn.config(bg='gray')
+
+    def get_btn_info(self):
+        return self.btn_info

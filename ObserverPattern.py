@@ -1,7 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 from IBtnForElevator import IBtnForElevator
-from model import BtnElevatorInfo
 
 
 class Subject(object, metaclass=ABCMeta):
@@ -38,4 +37,8 @@ class ConcreteSubject(Subject):
 
     def print_all_buttons(self):
         for observer in self._observers:
-            print(observer.get_all_buttons())
+            print(observer.get_all_buttons_info())
+
+    def get_all_buttons(self):
+        for observer in self._observers:
+            print(observer.get_all_buttons_info())
