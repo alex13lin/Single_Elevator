@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from typing import List
 from NewPrint import NewPrint as NPrint
 from IBtnForElevator import IBtnForElevator
-from model import ElevatorInfo
+from model import BtnElevatorInfo
 
 
 class Subject(object, metaclass=ABCMeta):
@@ -20,22 +20,9 @@ class Subject(object, metaclass=ABCMeta):
 
 
 class ConcreteSubject(Subject):
-    """
-    The Subject owns some important state and notifies observers when the state
-    changes.
-    """
-
-    _state: int = None
-    """
-    For the sake of simplicity, the Subject's state, essential to all
-    subscribers, is stored in this variable.
-    """
-
-    _observers: List[IBtnForElevator] = []
-    """
-    List of subscribers. In real life, the list of subscribers can be stored
-    more comprehensively (categorized by event type, etc.).
-    """
+    def __init__(self):
+        self._state: int
+        self._observers: List[IBtnForElevator] = []
 
     def attach(self, observer: IBtnForElevator) -> None:
         NPrint(f"    ObserverPattern.py Subject: Attached an observer {observer.get_func_name()}.")
@@ -44,16 +31,8 @@ class ConcreteSubject(Subject):
     def detach(self, observer: IBtnForElevator) -> None:
         self._observers.remove(observer)
 
-    """
-    The subscription management methods.
-    """
-
     def notify(self) -> None:
-        """
-        Trigger an update in each subscriber.
-        """
-
-        print("Subject: Notifying observers...")
+        pass
 
     def create_button(self):
         for observer in self._observers:

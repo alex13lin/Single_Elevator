@@ -1,15 +1,18 @@
-class ElevatorInfo(object):
-    def __init__(self):
-        self.stair = 0
-        self.direct = ''
+class BtnElevatorInfo(object):
+    stair: int
+    direct: str
+    state: bool
+    the_type: str
 
 
-class BtnElevatorDetail(object):
-    def __init__(self):
-        self.height = 2
-        self.width = 5
-        self.fontsize = 12
-        self.text = None
-        self.x = 0
-        self.y = 0
-        self.y_space = 0
+# class ElevatorProcessInfo(object):
+
+
+class BtnElevatorStyle(object):
+    height: int = 2
+    width: int = 5
+    fontsize: int = 12
+    text: str = None
+    x: int = 0
+    y: int = 0
+    y_space: int = 0

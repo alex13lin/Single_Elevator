@@ -1,11 +1,11 @@
 from abc import ABCMeta, abstractmethod
-from model import ElevatorInfo, BtnElevatorDetail
+from model import BtnElevatorInfo, BtnElevatorStyle
 
 
 class IBtnForElevator(object, metaclass=ABCMeta):
 
     @abstractmethod
-    def create_button(self, elevator_info: ElevatorInfo = None, btn_style: BtnElevatorDetail = None):
+    def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         pass
 
     @abstractmethod

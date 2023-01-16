@@ -1,20 +1,45 @@
 import tkinter as tk
-from model import ElevatorInfo, BtnElevatorDetail
+from model import BtnElevatorInfo, BtnElevatorStyle
 from NewPrint import NewPrint as nPrint
 
+IS_PRESSED = True
+NOT_PRESSED = False
 
-class TkElevator(object):
-    def __init__(self, elevator_info: ElevatorInfo, btn_style: BtnElevatorDetail):
-        self.elevator_info = elevator_info
-        self.btn_style = btn_style
-        self.stair = self.elevator_info.stair
 
-    def create_button(self):
-        text = self.stair + 1 if self.btn_style.text is None else self.btn_style.text
-        btn = tk.Button(text=text, bg="gray", height=self.btn_style.height,
-                        width=self.btn_style.width, font=('Arial', self.btn_style.fontsize))
-        btn.place(x=self.btn_style.x, y=self.btn_style.y - self.btn_style.y_space * self.stair)
-        btn.config(command=self.print_detail)
+class BtnElevator(object):
+    def __init__(self):
+        self.btn = None
+        self.btn_info = BtnElevatorInfo()
+        self.btn_info.state = False
+        self.stair = None
+        self.state = NOT_PRESSED
+
+    def create_button(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle):
+        self.set_btn_info(btn_info)
+        text = btn_info.stair + 1 if btn_style.text is None else btn_style.text
+        self.btn = tk.Button(text=text, bg="gray", height=btn_style.height,
+                             width=btn_style.width, font=('Arial', btn_style.fontsize))
+        self.btn.place(x=btn_style.x, y=btn_style.y - btn_style.y_space * btn_info.stair)
+        self.btn.config(command=self.set_btn_state)
+        return self.btn
 
     def print_detail(self):
         nPrint([self.stair + 1])
+
+    def set_btn_state(self):
+        self.btn_info.state = not self.btn_info.state
+        self.change_btn_color()
+
+    def set_btn_info(self, btn_info: BtnElevatorInfo):
+        self.btn_info.state = False
+        self.btn_info.direct = btn_info.direct
+        self.btn_info.stair = btn_info.stair + 1
+        self.btn_info.the_type = btn_info.the_type
+
+    def change_btn_color(self):
+        if self.btn_info.state is IS_PRESSED:
+            self.btn.config(bg='pink')
+        elif self.btn_info.state is NOT_PRESSED:
+            self.btn.config(bg='gray')
+
+
