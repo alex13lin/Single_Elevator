@@ -1,30 +1,29 @@
 from IBtnForElevator import IBtnForElevator
-from NewPrint import NewPrint as nPrint
 from TkElevator import BtnElevator
 from model import BtnElevatorInfo, BtnElevatorStyle
+from log import Log
 
 HIGHEST_STAIR = 6
+log = Log()
 
 
 # 電梯按鈕abstract class
 class BtnsForElevatorSys(IBtnForElevator):
-    def __init__(self, func_name):
-        self.func_name = func_name
+    def __init__(self, a):
+        log.log(self.__class__.__name__)
+        self.func_name = BtnsForElevatorSys.__name__
         self.all_buttons = []
 
     def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
-        nPrint(f"    BtnForElevator.py Log: {self.func_name}.create_button()")
+        log.log(self.__class__.__name__)
         for stair in range(HIGHEST_STAIR):
             btn_info.stair = stair
-            btn = BtnElevator().create_button(btn_info, btn_style)
-            self.all_buttons.append(btn)
+            BtnElevator().create_button(btn_info, btn_style)
 
     def get_all_buttons(self):
-        nPrint(f"    BtnForElevator.py Log: {self.func_name}.get_all_buttons()")
         return self.all_buttons
 
     def get_func_name(self):
-        nPrint(f"    BtnForElevator.py Log: {self.func_name}.get_func_name()")
         return self.func_name
 
 

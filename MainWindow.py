@@ -18,7 +18,7 @@ class MainWindow(tk.Tk):
         self.attach_elevator_subject()
         self.run()
 
-        self.mainloop()
+        # self.mainloop()
 
     def attach_elevator_subject(self):
         self.elevator_subject.attach(self.btns_in_elevator)

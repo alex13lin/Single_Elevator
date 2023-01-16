@@ -1,6 +1,5 @@
 import tkinter as tk
 from model import BtnElevatorInfo, BtnElevatorStyle
-from NewPrint import NewPrint as nPrint
 
 IS_PRESSED = True
 NOT_PRESSED = False
@@ -11,8 +10,6 @@ class BtnElevator(object):
         self.btn = None
         self.btn_info = BtnElevatorInfo()
         self.btn_info.state = False
-        self.stair = None
-        self.state = NOT_PRESSED
 
     def create_button(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle):
         self.set_btn_info(btn_info)
@@ -20,13 +17,9 @@ class BtnElevator(object):
         self.btn = tk.Button(text=text, bg="gray", height=btn_style.height,
                              width=btn_style.width, font=('Arial', btn_style.fontsize))
         self.btn.place(x=btn_style.x, y=btn_style.y - btn_style.y_space * btn_info.stair)
-        self.btn.config(command=self.set_btn_state)
-        return self.btn
+        self.btn.config(command=self.update_btn)
 
-    def print_detail(self):
-        nPrint([self.stair + 1])
-
-    def set_btn_state(self):
+    def update_btn(self):
         self.btn_info.state = not self.btn_info.state
         self.change_btn_color()
 
@@ -41,5 +34,3 @@ class BtnElevator(object):
             self.btn.config(bg='pink')
         elif self.btn_info.state is NOT_PRESSED:
             self.btn.config(bg='gray')
-
-

@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-from NewPrint import NewPrint as NPrint
 from IBtnForElevator import IBtnForElevator
 from model import BtnElevatorInfo
 
@@ -25,7 +24,6 @@ class ConcreteSubject(Subject):
         self._observers: List[IBtnForElevator] = []
 
     def attach(self, observer: IBtnForElevator) -> None:
-        NPrint(f"    ObserverPattern.py Subject: Attached an observer {observer.get_func_name()}.")
         self._observers.append(observer)
 
     def detach(self, observer: IBtnForElevator) -> None:
