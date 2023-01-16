@@ -4,18 +4,17 @@ from model import BtnElevatorInfo, BtnElevatorStyle
 from log import Log
 
 HIGHEST_STAIR = 6
-log = Log()
 
 
 # 電梯按鈕abstract class
 class BtnsForElevatorSys(IBtnForElevator):
-    def __init__(self, a):
-        log.log(self.__class__.__name__)
+    def __init__(self):
+        self.log = Log()
         self.func_name = BtnsForElevatorSys.__name__
         self.all_buttons = []
 
     def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
-        log.log(self.__class__.__name__)
+        self.log.log()
         for stair in range(HIGHEST_STAIR):
             btn_info.stair = stair
             BtnElevator().create_button(btn_info, btn_style)
@@ -30,7 +29,7 @@ class BtnsForElevatorSys(IBtnForElevator):
 # 電梯內按鈕class
 class BtnsInElevator(BtnsForElevatorSys):
     def __init__(self):
-        super().__init__("BtnsInElevator()")
+        super().__init__()
 
     def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
@@ -50,7 +49,7 @@ class BtnsInElevator(BtnsForElevatorSys):
 # 樓層的向上按鈕
 class BtnsOnStairUp(BtnsForElevatorSys):
     def __init__(self):
-        super().__init__("BtnsOnStairUp()")
+        super().__init__()
 
     def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
@@ -70,7 +69,7 @@ class BtnsOnStairUp(BtnsForElevatorSys):
 # 樓層的向下按鈕
 class BtnsOnStairDown(BtnsForElevatorSys):
     def __init__(self):
-        super().__init__("BtnsOnStairDown()")
+        super().__init__()
 
     def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
