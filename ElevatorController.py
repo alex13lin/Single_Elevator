@@ -20,74 +20,75 @@ STOP = 0
 class Process(Thread):
     def __init__(self):
         super().__init__()
-
-        self.sort_next_stairs = SortNextStairs()
-        self.btns_in_elevator = None
-        self.btns_on_stair_up = None
-        self.btns_on_stair_down = None
-
-        self.next_stairs = []
-
-        self.elevator = Elevator()
-
-        self.elevator.place_now = 0
-        self.elevator.place_next = 0
-        self.elevator.next_temp = 0
-        self.elevator.place_y = INIT_PLACE_Y
-
-        self.temp_for_terminating = 0
-
-        self.elevator.direct = STOP
-        self.elevator.direct_former = STOP
+        self.__sort_next_stairs = SortNextStairs()
+        self.__next_stairs: List[TkBtnElevator] = list()
+        self.__all_buttons: List[TkBtnElevator] = list()
+        self.__elevator = Elevator()
+        self.__set_elevator()
 
     def process_run(self) -> None:
-        self.elevator.run_times += 1
-        self.next_stairs.clear()
-        self.set_next_stairs(self.btns_in_elevator)
-        self.set_next_stairs(self.btns_on_stair_up)
-        self.set_next_stairs(self.btns_on_stair_down)
-        self.sort_next_stairs.run(self.next_stairs, self.elevator)
-        self.set_elevator_place()
+        self.__elevator.run_times += 1
+        self.__next_stairs.clear()
+        self.__set_next_stairs(self.__all_buttons)
+        self.__sort_next_stairs.run(self.__next_stairs, self.__elevator)
+        self.__set_elevator_place()
 
-    def set_elevator_place(self) -> None:
-        self.elevator.direct_former = self.elevator.direct
-        if len(self.next_stairs) > 0:
-            self.elevator.place_next = self.next_stairs[0].get_btn_info().stair
-            self.elevator.direct = self.set_direct(self.elevator.place_next)
-            self.temp_for_terminating = int(self.elevator.place_now)
-        elif len(self.next_stairs) == 0:
-            self.set_temp_for_terminating()
-            self.elevator.direct = self.set_direct(self.elevator.place_next)
-        self.set_elevator_lbl_place()
-        self.arrive_next_stair()
+    def __set_elevator_place(self) -> None:
+        self.__elevator.direct_former = self.__elevator.direct
+        if len(self.__next_stairs) > 0:
+            self.__elevator.place_next = self.__next_stairs[0].get_btn_info().stair
+            self.__elevator.direct = self.__set_direct(self.__elevator.place_next)
+            self.__elevator.next_temp = int(self.__elevator.place_now)
+        elif len(self.__next_stairs) == 0:
+            self.__set_next_temp_for_terminating()
+            self.__elevator.direct = self.__set_direct(self.__elevator.place_next)
+        self.__set_elevator_lbl_place()
+        self.__arrive_next_stair()
 
-    def set_elevator_lbl_place(self) -> None:
-        self.elevator.place_y -= 2 * self.elevator.direct
-        self.elevator.place_now = (INIT_PLACE_Y - self.elevator.place_y) / INIT_PLACE_Y_SPACE
+    def __set_elevator_lbl_place(self) -> None:
+        self.__elevator.place_y -= 2 * self.__elevator.direct
+        self.__elevator.place_now = (INIT_PLACE_Y - self.__elevator.place_y) / INIT_PLACE_Y_SPACE
 
-    def arrive_next_stair(self) -> None:
-        if self.elevator.place_now == self.elevator.place_next and len(self.next_stairs) > 0:
-            btn: TkBtnElevator = self.next_stairs[0]
+    def __arrive_next_stair(self) -> None:
+        if self.__elevator.place_now == self.__elevator.place_next and len(self.__next_stairs) > 0:
+            btn: TkBtnElevator = self.__next_stairs[0]
             btn.update_btn()
             time.sleep(0.1)
 
-    def set_temp_for_terminating(self) -> None:
-        if self.elevator.direct > 0:
-            self.elevator.place_next = self.temp_for_terminating + 1
-        elif self.elevator.direct < 0:
-            self.elevator.place_next = self.temp_for_terminating
+    def __set_next_temp_for_terminating(self) -> None:
+        if self.__elevator.direct > 0:
+            self.__elevator.place_next = self.__elevator.next_temp + 1
+        elif self.__elevator.direct < 0:
+            self.__elevator.place_next = self.__elevator.next_temp
 
-    def set_next_stairs(self, btns: List[TkBtnElevator]) -> None:
+    def __set_next_stairs(self, btns: List[TkBtnElevator]) -> None:
         for btn in btns:
             info = btn.get_btn_info()
             if info.state:
-                info.direct = self.set_direct(info.stair) if info.direct == UNASSIGNED else info.direct
-                self.next_stairs.append(btn)
+                info.direct = self.__set_direct(info.stair) if info.direct == UNASSIGNED else info.direct
+                self.__next_stairs.append(btn)
 
-    def set_direct(self, stair) -> int:
-        if stair - self.elevator.place_now > 0:
+    def __set_direct(self, stair) -> int:
+        if stair - self.__elevator.place_now > 0:
             return UP
-        elif stair - self.elevator.place_now < 0:
+        elif stair - self.__elevator.place_now < 0:
             return DOWN
         else:
             return STOP
+
+    def __set_elevator(self) -> None:
+        self.__elevator.place_now = 0
+        self.__elevator.place_next = 0
+        self.__elevator.next_temp = 0
+        self.__elevator.place_y = INIT_PLACE_Y
+        self.__elevator.direct = STOP
+        self.__elevator.direct_former = STOP
+
+    def set_all_buttons(self, all_buttons) -> None:
+        self.__all_buttons = all_buttons
+
+    def get_elevator_place_now(self) -> float:
+        return self.__elevator.place_now
+
+    def get_elevator_place_y(self) -> float:
+        return self.__elevator.place_y

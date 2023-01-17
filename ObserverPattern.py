@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 from IBtnForElevator import IBtnForElevator
+from TkBtnElevator import TkBtnElevator
 
 
 class Subject(object, metaclass=ABCMeta):
@@ -39,6 +40,8 @@ class ConcreteSubject(Subject):
         for observer in self._observers:
             print(observer.get_all_buttons())
 
-    def get_all_buttons(self) -> None:
+    def get_all_buttons(self) -> List[TkBtnElevator]:
+        all_buttons = []
         for observer in self._observers:
-            print(observer.get_all_buttons())
+            all_buttons.extend(observer.get_all_buttons())
+        return all_buttons
