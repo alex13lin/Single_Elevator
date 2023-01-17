@@ -12,10 +12,10 @@ class TkLblElevator(object):
         self.elevator_place_label = tk.Label(font=("Arial", 18), bg="gray", height=3, width=7)
 
     def set_stairs_label(self):
-        for i in range(HIGHEST_STAIR):
-            self.stairs_label = tk.Label(text=f"{i + 1}F", font=("Arial", 15), height=2,
+        for stair in range(HIGHEST_STAIR):
+            self.stairs_label = tk.Label(text=f"{stair + 1}F", font=("Arial", 15), height=2,
                                          width=3)
-            self.stairs_label.place(x=5, y=INIT_PLACE_Y - INIT_PLACE_Y_SPACE * i)
+            self.stairs_label.place(x=5, y=INIT_PLACE_Y - INIT_PLACE_Y_SPACE * stair)
 
     def set_elevator_place_label(self, place_now, y):
         self.elevator_place_label.config(text=math.floor(place_now) + 1)
