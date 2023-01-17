@@ -58,6 +58,7 @@ class Process(Thread):
             btn = self.next_stairs[0]
             btn.update_btn()
 
+
     def set_temp_for_terminating(self):
         if self.elevator_direct > 0:
             self.elevator_place_next = self.temp_for_terminating + 1
