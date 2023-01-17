@@ -49,6 +49,17 @@ class MainWindow(tk.Tk):
         self.process.btns_on_stair_down = self.btns_on_stair_down.get_all_buttons()
         self.process.run()
 
+    def set_label(self):
+        self.elevator_place_label = tk.Label(font=("Arial", 18), bg="gray", height=3, width=7)
+        self.set_elevator_place_label()
+        self.set_stairs_label()
+
+
+
+    def set_elevator_place_label(self):
+        self.elevator_place_label.config(text=math.floor(self.process.elevator_place_now))
+        self.elevator_place_label.place(x=200, y=self.process.elevator_place_y)
+
 
 if __name__ == '__main__':
     MainWindow()

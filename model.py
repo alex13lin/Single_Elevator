@@ -3,9 +3,7 @@ class BtnElevatorInfo(object):
     direct: str
     state: bool
     the_type: str
-
-
-# class ElevatorProcessInfo(object):
+    position: str
 
 
 class BtnElevatorStyle(object):

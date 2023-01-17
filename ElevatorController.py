@@ -25,7 +25,7 @@ class Process(object):
         self.elevator_direct = STOP
 
     def run(self):
-        print("self.elevator_place_now:", self.elevator_place_now + 1)
+        # print("self.elevator_place_now:", self.elevator_place_now + 1)
         self.next_stairs = []
         self.set_next_stairs(self.btns_in_elevator)
         self.set_next_stairs(self.btns_on_stair_up)

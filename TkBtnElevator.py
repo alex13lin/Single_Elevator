@@ -2,18 +2,17 @@ import tkinter as tk
 from model import BtnElevatorInfo, BtnElevatorStyle
 from log import Log
 
-HIGHEST_STAIR = 6 - 1
-LOWEST_STAIR = 1 - 1
+
 IS_PRESSED = True
 NOT_PRESSED = False
 UNASSIGNED = 1000
 
 
-class BtnElevator(object):
+class TkBtnElevator(object):
     def __init__(self):
         self.btn = None
         self.btn_info = BtnElevatorInfo()
-        self.btn_info.state = False
+        self.btn_info.state = NOT_PRESSED
         self.log = Log()
 
     def create_button(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle):
@@ -32,6 +31,7 @@ class BtnElevator(object):
         self.btn_info.direct = btn_info.direct
         self.btn_info.stair = btn_info.stair
         self.btn_info.the_type = btn_info.the_type
+        self.btn_info.position = btn_info.position
 
     def update_btn(self):
         self.log.log()
@@ -50,8 +50,8 @@ class BtnElevator(object):
         return self.btn_info
 
     def disable_btn(self):
-        if self.btn_info.the_type == "stair_up" and self.btn_info.stair == HIGHEST_STAIR:
+        if self.btn_info.the_type == "stair_up" and self.btn_info.position == "top":
             self.btn.config(state=tk.DISABLED)
-        if self.btn_info.the_type == "stair_down" and self.btn_info.stair == LOWEST_STAIR:
+        if self.btn_info.the_type == "stair_down" and self.btn_info.position == "bottom":
             self.btn.config(state=tk.DISABLED)
 

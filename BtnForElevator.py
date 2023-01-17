@@ -1,15 +1,19 @@
 from IBtnForElevator import IBtnForElevator
-from TkElevator import BtnElevator
+from TkBtnElevator import TkBtnElevator
 from model import BtnElevatorInfo, BtnElevatorStyle
 from log import Log
 
 HIGHEST_STAIR = 6 - 1
+LOWEST_STAIR = 1 - 1
 UP = 1
 DOWN = -1
 UNASSIGNED = 0
 
 
 # 電梯按鈕abstract class
+
+
+
 class BtnsForElevatorSys(IBtnForElevator):
     def __init__(self):
         self.log = Log()
@@ -18,9 +22,10 @@ class BtnsForElevatorSys(IBtnForElevator):
 
     def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         self.log.log()
-        for stair in range(HIGHEST_STAIR + 1):
+        for stair in range(LOWEST_STAIR, HIGHEST_STAIR + 1):
             btn_info.stair = stair
-            btn_elevator = BtnElevator()
+            btn_info.position = "top" if stair == HIGHEST_STAIR else("bottom" if stair == LOWEST_STAIR else "")
+            btn_elevator = TkBtnElevator()
             btn_elevator.create_button(btn_info, btn_style)
             self.all_buttons.append(btn_elevator)
 
