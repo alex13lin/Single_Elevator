@@ -31,14 +31,14 @@ class ConcreteSubject(Subject):
     def notify(self) -> None:
         pass
 
-    def create_buttons(self):
+    def create_buttons(self) -> None:
         for observer in self._observers:
             observer.create_buttons()
 
-    def print_all_buttons(self):
+    def print_all_buttons(self) -> None:
         for observer in self._observers:
             print(observer.get_all_buttons())
 
-    def get_all_buttons(self):
+    def get_all_buttons(self) -> None:
         for observer in self._observers:
             print(observer.get_all_buttons())

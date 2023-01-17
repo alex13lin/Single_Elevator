@@ -11,7 +11,7 @@ class SortNextStairs(object):
         self.elevator = None
         self.up_bigger, self.up_smaller, self.down_bigger, self.down_smaller = [], [], [], []
 
-    def run(self, next_stairs, elevator: Elevator):
+    def run(self, next_stairs, elevator: Elevator) -> None:
         self.next_stairs = next_stairs
         self.elevator = elevator
         self.classify_next_stairs()
@@ -23,7 +23,7 @@ class SortNextStairs(object):
             self.next_stairs.clear()
             self.next_stairs.extend(self.down_smaller + self.up_smaller + self.up_bigger + self.down_bigger)
 
-    def classify_next_stairs(self):
+    def classify_next_stairs(self) -> None:
         self.up_bigger, self.up_smaller, self.down_bigger, self.down_smaller = [], [], [], []
         for btn in self.next_stairs:
             info = btn.get_btn_info()
@@ -38,11 +38,14 @@ class SortNextStairs(object):
                 else:
                     self.down_smaller.append(btn)
 
-    def sort_part_of_next_stairs(self):
-        self.up_bigger.sort(key=lambda b: b.get_btn_info().stair)
-        self.up_smaller.sort(key=lambda b: b.get_btn_info().stair)
-        self.down_bigger.sort(key=lambda b: b.get_btn_info().stair, reverse=True)
-        self.down_smaller.sort(key=lambda b: b.get_btn_info().stair, reverse=True)
+    def sort_part_of_next_stairs(self) -> None:
+        self.sort_by_stair(self.up_bigger)
+        self.sort_by_stair(self.up_smaller)
+        self.sort_by_stair(self.down_bigger, True)
+        self.sort_by_stair(self.down_smaller, True)
 
-    def direct_exception(self, direct):
+    def sort_by_stair(self, the_list: [], reverse=False) -> None:
+        the_list.sort(key=lambda b: b.get_btn_info().stair, reverse=reverse)
+
+    def direct_exception(self, direct) -> int:
         return self.elevator.direct_former is direct and self.elevator.direct is STOP
