@@ -10,8 +10,8 @@ UNASSIGNED = 1000
 class TkBtnElevator(object):
     def __init__(self):
         self.btn = None
-        self.btn_info = BtnElevatorInfo()
-        self.btn_info.state = NOT_PRESSED
+        self.__btn_info = BtnElevatorInfo()
+        self.__btn_info.state = NOT_PRESSED
         self.__log = Log()
 
     def create_button(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle):
@@ -26,30 +26,30 @@ class TkBtnElevator(object):
 
     def __set_btn_info(self, btn_info: BtnElevatorInfo) -> None:
         self.__log.log()
-        self.btn_info.state = False
-        self.btn_info.direct = btn_info.direct
-        self.btn_info.stair = btn_info.stair
-        self.btn_info.the_type = btn_info.the_type
-        self.btn_info.position = btn_info.position
+        self.__btn_info.state = False
+        self.__btn_info.direct = btn_info.direct
+        self.__btn_info.stair = btn_info.stair
+        self.__btn_info.the_type = btn_info.the_type
+        self.__btn_info.position = btn_info.position
 
     def update_btn(self) -> None:
         self.__log.log()
-        self.btn_info.state = not self.btn_info.state
-        self.btn_info.direct = UNASSIGNED if self.btn_info.the_type is "elevator" else self.btn_info.direct
+        self.__btn_info.state = not self.__btn_info.state
+        self.__btn_info.direct = UNASSIGNED if self.__btn_info.the_type is "elevator" else self.__btn_info.direct
         self.__change_btn_color()
 
     def __change_btn_color(self) -> None:
         self.__log.log()
-        if self.btn_info.state is IS_PRESSED:
+        if self.__btn_info.state is IS_PRESSED:
             self.btn.config(bg='pink')
-        elif self.btn_info.state is NOT_PRESSED:
+        elif self.__btn_info.state is NOT_PRESSED:
             self.btn.config(bg='gray')
 
     def get_btn_info(self) -> BtnElevatorInfo:
-        return self.btn_info
+        return self.__btn_info
 
     def __disable_btn(self) -> None:
-        if self.btn_info.the_type == "stair_up" and self.btn_info.position == "top":
+        if self.__btn_info.the_type == "stair_up" and self.__btn_info.position == "top":
             self.btn.config(state=tk.DISABLED)
-        if self.btn_info.the_type == "stair_down" and self.btn_info.position == "bottom":
+        if self.__btn_info.the_type == "stair_down" and self.__btn_info.position == "bottom":
             self.btn.config(state=tk.DISABLED)
