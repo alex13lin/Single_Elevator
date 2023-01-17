@@ -23,6 +23,7 @@ class Process(object):
         self.temp_for_terminating = 0
 
         self.elevator_direct = STOP
+        self.elevator_direct_former = STOP
 
     def run(self):
         self.next_stairs = []
@@ -33,32 +34,31 @@ class Process(object):
 
         self.set_elevator_place()
 
-        # print(self.btns_in_elevator_info)
-        # print(self.btns_on_stair_up_info)
-        # print(self.btns_on_stair_down_info)
-        # print(self.next_stairs)
-
     def set_elevator_place(self):
+        self.elevator_direct_former = self.elevator_direct
         if len(self.next_stairs) > 0:
             self.elevator_place_next = self.next_stairs[0].get_btn_info().stair
             self.elevator_direct = self.set_direct(self.elevator_place_next)
             self.temp_for_terminating = int(self.elevator_place_now)
-            if self.elevator_direct == 0:
-                self.arrive_next_stair()
+            self.arrive_next_stair()
         elif len(self.next_stairs) == 0:
-            self.elevator_place_next = self.set_temp_for_terminating(self.temp_for_terminating)
+            self.set_temp_for_terminating()
             self.elevator_direct = self.set_direct(self.elevator_place_next)
+        self.set_elevator_lbl_place()
+
+    def set_elevator_lbl_place(self):
         self.elevator_place_y -= 2 * self.elevator_direct
         self.elevator_place_now = (INIT_PLACE_Y - self.elevator_place_y) / INIT_PLACE_Y_SPACE
 
     def arrive_next_stair(self):
-        btn = self.next_stairs[0]
-        btn.update_btn()
+        if self.elevator_direct == 0:
+            btn = self.next_stairs[0]
+            btn.update_btn()
 
-    def set_temp_for_terminating(self, temp_for_terminating):
+    def set_temp_for_terminating(self):
         if self.elevator_direct > 0:
-            return temp_for_terminating + 1
-        return temp_for_terminating
+            self.elevator_place_next = self.temp_for_terminating + 1
+        self.elevator_place_next = self.temp_for_terminating
 
     def set_next_stairs(self, btns):
         for btn in btns:
@@ -77,10 +77,13 @@ class Process(object):
 
     def sort_next_stairs(self):
         self.classify_next_stairs()
-        if self.elevator_direct is UP:
+        if self.elevator_direct is UP or self.direct_exception(UP):
             self.next_stairs = self.up_bigger + self.down_bigger + self.down_smaller + self.up_smaller
-        elif self.elevator_direct is DOWN:
+        elif self.elevator_direct is DOWN or self.direct_exception(DOWN):
             self.next_stairs = self.down_smaller + self.up_smaller + self.up_bigger + self.down_bigger
+
+    def direct_exception(self, direct):
+        return self.elevator_direct_former is direct and self.elevator_direct is STOP
 
     def classify_next_stairs(self):
         self.up_bigger, self.up_smaller, self.down_bigger, self.down_smaller = [], [], [], []
