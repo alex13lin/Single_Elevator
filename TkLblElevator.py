@@ -1,6 +1,8 @@
 import tkinter as tk
 import math
 
+from model import Elevator
+
 HIGHEST_STAIR = 6
 INIT_PLACE_Y = 580
 INIT_PLACE_Y_SPACE = 100
@@ -21,6 +23,7 @@ class TkLblElevator(object):
         self.__elevator_place_lbl = tk.Label(font=("Arial", 18), bg="gray", height=3, width=7)
         self.update_elevator_place_lbl()
 
-    def update_elevator_place_lbl(self, place_now: float = 0, y: float = 0) -> None:
-        self.__elevator_place_lbl.config(text=math.floor(place_now) + 1)
-        self.__elevator_place_lbl.place(x=200, y=y + 5)
+    def update_elevator_place_lbl(self, elevator: Elevator = None) -> None:
+        if elevator is not None:
+            self.__elevator_place_lbl.config(text=math.floor(elevator.place_now) + 1)
+            self.__elevator_place_lbl.place(x=200, y=elevator.place_y + 5)

@@ -8,19 +8,19 @@ import tkinter as tk
 class MainWindow(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Elevator")
-        self.geometry('500x700+1000+20')
-        self.resizable(False, False)
+        self.__set_window()
         self.__process = Process()
         self.__process.start()
-        self.__btns_in_elevator = BtnsInElevator()
-        self.__btns_on_stair_up = BtnsOnStairUp()
-        self.__btns_on_stair_down = BtnsOnStairDown()
         self.__elevator_subject = ConcreteSubject()
         self.__lbl_elevator = TkLblElevator()
         self.start()
         self.after(10, self.__refresh_window)
         self.mainloop()
+
+    def __set_window(self) -> None:
+        self.title("Elevator")
+        self.geometry('500x700+1000+20')
+        self.resizable(False, False)
 
     def __refresh_window(self) -> None:
         self.__process.process_run()
@@ -34,21 +34,16 @@ class MainWindow(tk.Tk):
         self.__set_all_lbl()
 
     def __attach_elevator_subject(self) -> None:
-        self.__elevator_subject.attach(self.__btns_in_elevator)
-        self.__elevator_subject.attach(self.__btns_on_stair_up)
-        self.__elevator_subject.attach(self.__btns_on_stair_down)
-
-    def run(self) -> None:
-        pass
+        self.__elevator_subject.attach(BtnsInElevator())
+        self.__elevator_subject.attach(BtnsOnStairUp())
+        self.__elevator_subject.attach(BtnsOnStairDown())
 
     def __set_all_lbl(self) -> None:
         self.__lbl_elevator.set_stairs_lbl()
         self.__set_lbl_elevator()
 
     def __set_lbl_elevator(self) -> None:
-        place_now = self.__process.get_elevator_place_now()
-        place_y = self.__process.get_elevator_place_y()
-        self.__lbl_elevator.update_elevator_place_lbl(place_now, place_y)
+        self.__lbl_elevator.update_elevator_place_lbl(self.__process.get_elevator())
 
 
 if __name__ == '__main__':

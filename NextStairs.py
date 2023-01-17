@@ -30,7 +30,7 @@ class NextStairs(object):
         self.__sort_by_stair(self.__down_smaller, True)
 
     @staticmethod
-    def __sort_by_stair(the_list: [], reverse=False) -> None:
+    def __sort_by_stair(the_list: [], reverse: bool = False) -> None:
         the_list.sort(key=lambda b: b.get_btn_info().stair, reverse=reverse)
 
     def clear_all_parts(self) -> None:

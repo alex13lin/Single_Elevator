@@ -34,7 +34,7 @@ class BtnsForElevatorSys(IBtnForElevator):
         return self.__all_buttons
 
     @staticmethod
-    def __set_btn_info(btn_info: BtnElevatorInfo, stair: int):
+    def __set_btn_info(btn_info: BtnElevatorInfo, stair: int) -> None:
         btn_info.stair = stair
         btn_info.position = "top" if stair == HIGHEST_STAIR else ("bottom" if stair == LOWEST_STAIR else "")
 
@@ -44,7 +44,7 @@ class BtnsInElevator(BtnsForElevatorSys):
     def __init__(self):
         super().__init__()
 
-    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
+    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None) -> None:
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
         btn_info.the_type = "elevator"
         btn_info.direct = UNASSIGNED
@@ -64,7 +64,7 @@ class BtnsOnStairUp(BtnsForElevatorSys):
     def __init__(self):
         super().__init__()
 
-    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
+    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None) -> None:
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
         btn_info.the_type = "stair_up"
         btn_info.direct = 1
@@ -84,7 +84,7 @@ class BtnsOnStairDown(BtnsForElevatorSys):
     def __init__(self):
         super().__init__()
 
-    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
+    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None) -> None:
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
         btn_info.the_type = "stair_down"
         btn_info.direct = DOWN

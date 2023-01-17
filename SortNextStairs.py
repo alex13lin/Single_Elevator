@@ -35,7 +35,7 @@ class SortNextStairs(object):
             self.__next_stairs.append_up_smaller(btn)
 
     def __classify_part_down(self, btn: TkBtnElevator) -> None:
-        info = btn.get_btn_info()
+        info: BtnElevatorInfo = btn.get_btn_info()
         if info.direct is not DOWN:
             return
         elif info.stair > self.__elevator.place_now:

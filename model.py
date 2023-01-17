@@ -1,11 +1,11 @@
 class Elevator(object):
     direct: int
     direct_former: int
-    place_now: float
-    place_next: int
-    next_temp: int
+    place_now: float = 0.0
+    place_next: int = 0
+    next_temp: int = 0
     place_y: float
-    run_times = int(0)
+    run_times: int = 0
 
 
 class BtnElevatorInfo(object):
