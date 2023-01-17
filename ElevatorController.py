@@ -1,3 +1,5 @@
+from threading import Thread
+import time
 INIT_PLACE_Y = 550
 INIT_PLACE_Y_SPACE = 100
 UP = 1
@@ -6,8 +8,9 @@ UNASSIGNED = 1000
 STOP = 0
 
 
-class Process(object):
+class Process(Thread):
     def __init__(self):
+        super().__init__()
         self.btns_in_elevator = None
         self.btns_on_stair_up = None
         self.btns_on_stair_down = None
@@ -25,7 +28,7 @@ class Process(object):
         self.elevator_direct = STOP
         self.elevator_direct_former = STOP
 
-    def run(self):
+    def process_run(self):
         self.next_stairs = []
         self.set_next_stairs(self.btns_in_elevator)
         self.set_next_stairs(self.btns_on_stair_up)

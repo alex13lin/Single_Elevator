@@ -14,6 +14,7 @@ class MainWindow(tk.Tk):
         self.resizable(False, False)
 
         self.process = Process()
+        self.process.start()
         self.btns_in_elevator = BtnsInElevator()
         self.btns_on_stair_up = BtnsOnStairUp()
         self.btns_on_stair_down = BtnsOnStairDown()
@@ -47,7 +48,7 @@ class MainWindow(tk.Tk):
         self.process.btns_in_elevator = self.btns_in_elevator.get_all_buttons()
         self.process.btns_on_stair_up = self.btns_on_stair_up.get_all_buttons()
         self.process.btns_on_stair_down = self.btns_on_stair_down.get_all_buttons()
-        self.process.run()
+        self.process.process_run()
         self.lbl_elevator.set_elevator_place_label(self.process.elevator_place_now, self.process.elevator_place_y)
 
     def set_label(self):
