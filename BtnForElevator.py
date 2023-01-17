@@ -2,6 +2,7 @@ from IBtnForElevator import IBtnForElevator
 from TkBtnElevator import TkBtnElevator
 from model import BtnElevatorInfo, BtnElevatorStyle
 from log import Log
+from typing import List
 
 HIGHEST_STAIR = 6 - 1
 LOWEST_STAIR = 1 - 1
@@ -16,19 +17,26 @@ UNASSIGNED = 0
 class BtnsForElevatorSys(IBtnForElevator):
     def __init__(self):
         self.__log = Log()
-        self.__all_buttons = []
+        self.__all_buttons: List[TkBtnElevator] = []
 
     def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         self.__log.log()
         for stair in range(LOWEST_STAIR, HIGHEST_STAIR + 1):
-            btn_info.stair = stair
-            btn_info.position = "top" if stair == HIGHEST_STAIR else ("bottom" if stair == LOWEST_STAIR else "")
-            btn_elevator = TkBtnElevator()
-            btn_elevator.create_button(btn_info, btn_style)
-            self.__all_buttons.append(btn_elevator)
+            self.__set_btn_info(btn_info, stair)
+            self.__set_all_buttons(btn_info, btn_style)
 
-    def get_all_buttons(self):
+    def __set_all_buttons(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle) -> None:
+        btn_elevator = TkBtnElevator()
+        btn_elevator.run(btn_info, btn_style)
+        self.__all_buttons.append(btn_elevator)
+
+    def get_all_buttons(self) -> List[TkBtnElevator]:
         return self.__all_buttons
+
+    @staticmethod
+    def __set_btn_info(btn_info: BtnElevatorInfo, stair: int):
+        btn_info.stair = stair
+        btn_info.position = "top" if stair == HIGHEST_STAIR else ("bottom" if stair == LOWEST_STAIR else "")
 
 
 # 電梯內按鈕class

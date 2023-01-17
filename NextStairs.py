@@ -6,10 +6,6 @@ DOWN = -1
 STOP = 0
 
 
-def _sort_by_stair(the_list: [], reverse=False) -> None:
-    the_list.sort(key=lambda b: b.get_btn_info().stair, reverse=reverse)
-
-
 class NextStairs(object):
     def __init__(self):
         self.the_all: List[TkBtnElevator] = []
@@ -28,10 +24,14 @@ class NextStairs(object):
             self.the_all.extend(self.__up_bigger + self.__down_bigger)
 
     def sort_all_parts(self) -> None:
-        _sort_by_stair(self.__up_bigger)
-        _sort_by_stair(self.__up_smaller)
-        _sort_by_stair(self.__down_bigger, True)
-        _sort_by_stair(self.__down_smaller, True)
+        self.__sort_by_stair(self.__up_bigger)
+        self.__sort_by_stair(self.__up_smaller)
+        self.__sort_by_stair(self.__down_bigger, True)
+        self.__sort_by_stair(self.__down_smaller, True)
+
+    @staticmethod
+    def __sort_by_stair(the_list: [], reverse=False) -> None:
+        the_list.sort(key=lambda b: b.get_btn_info().stair, reverse=reverse)
 
     def clear_all_parts(self) -> None:
         self.__up_bigger.clear()

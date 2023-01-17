@@ -14,15 +14,20 @@ class TkBtnElevator(object):
         self.__btn_info.state = NOT_PRESSED
         self.__log = Log()
 
-    def create_button(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle) -> None:
+    def run(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle) -> None:
         self.__log.log()
         self.__set_btn_info(btn_info)
-        text = btn_info.stair + 1 if btn_style.text is None else btn_style.text
-        self.btn = tk.Button(text=text, bg="gray", height=btn_style.height,
-                             width=btn_style.width, font=('Arial', btn_style.fontsize))
-        self.btn.place(x=btn_style.x, y=btn_style.y - btn_style.y_space * btn_info.stair)
-        self.btn.config(command=self.update_btn)
+        self.__create_button(btn_style)
         self.__disable_btn()
+
+    def __create_button(self, style: BtnElevatorStyle) -> None:
+        self.btn = tk.Button(text=self.__set_btn_txt(style), bg="gray", height=style.height,
+                             width=style.width, font=('Arial', style.fontsize))
+        self.btn.place(x=style.x, y=style.y - style.y_space * self.__btn_info.stair)
+        self.btn.config(command=self.update_btn)
+
+    def __set_btn_txt(self, style: BtnElevatorStyle) -> int:
+        return self.__btn_info.stair + 1 if style.text is None else style.text
 
     def __set_btn_info(self, btn_info: BtnElevatorInfo) -> None:
         self.__log.log()
