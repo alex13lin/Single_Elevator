@@ -42,13 +42,13 @@ class MainWindow(tk.Tk):
         pass
 
     def __set_all_lbl(self) -> None:
-        self.__set_lbl_elevator()
         self.__lbl_elevator.set_stairs_lbl()
+        self.__set_lbl_elevator()
 
     def __set_lbl_elevator(self) -> None:
         place_now = self.__process.get_elevator_place_now()
         place_y = self.__process.get_elevator_place_y()
-        self.__lbl_elevator.set_elevator_place_lbl(place_now, place_y)
+        self.__lbl_elevator.update_elevator_place_lbl(place_now, place_y)
 
 
 if __name__ == '__main__':
