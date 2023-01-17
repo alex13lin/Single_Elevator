@@ -2,6 +2,8 @@ import tkinter as tk
 from model import BtnElevatorInfo, BtnElevatorStyle
 from log import Log
 
+HIGHEST_STAIR = 6 - 1
+LOWEST_STAIR = 1 - 1
 IS_PRESSED = True
 NOT_PRESSED = False
 UNASSIGNED = 1000
@@ -22,6 +24,7 @@ class BtnElevator(object):
                              width=btn_style.width, font=('Arial', btn_style.fontsize))
         self.btn.place(x=btn_style.x, y=btn_style.y - btn_style.y_space * btn_info.stair)
         self.btn.config(command=self.update_btn)
+        self.disable_btn()
 
     def set_btn_info(self, btn_info: BtnElevatorInfo):
         self.log.log()
@@ -45,3 +48,10 @@ class BtnElevator(object):
 
     def get_btn_info(self):
         return self.btn_info
+
+    def disable_btn(self):
+        if self.btn_info.the_type == "stair_up" and self.btn_info.stair == HIGHEST_STAIR:
+            self.btn.config(state=tk.DISABLED)
+        if self.btn_info.the_type == "stair_down" and self.btn_info.stair == LOWEST_STAIR:
+            self.btn.config(state=tk.DISABLED)
+

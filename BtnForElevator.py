@@ -3,7 +3,7 @@ from TkElevator import BtnElevator
 from model import BtnElevatorInfo, BtnElevatorStyle
 from log import Log
 
-HIGHEST_STAIR = 6
+HIGHEST_STAIR = 6 - 1
 UP = 1
 DOWN = -1
 UNASSIGNED = 0
@@ -18,7 +18,7 @@ class BtnsForElevatorSys(IBtnForElevator):
 
     def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         self.log.log()
-        for stair in range(HIGHEST_STAIR):
+        for stair in range(HIGHEST_STAIR + 1):
             btn_info.stair = stair
             btn_elevator = BtnElevator()
             btn_elevator.create_button(btn_info, btn_style)
@@ -55,7 +55,7 @@ class BtnsOnStairUp(BtnsForElevatorSys):
 
     def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
-        btn_info.the_type = "stair"
+        btn_info.the_type = "stair_up"
         btn_info.direct = 1
         btn_style = BtnElevatorStyle() if btn_style is None else btn_style
         btn_style.height = 2
@@ -75,7 +75,7 @@ class BtnsOnStairDown(BtnsForElevatorSys):
 
     def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
-        btn_info.the_type = "stair"
+        btn_info.the_type = "stair_down"
         btn_info.direct = DOWN
         btn_style = BtnElevatorStyle() if btn_style is None else btn_style
         btn_style.height = 2

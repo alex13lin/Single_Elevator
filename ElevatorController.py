@@ -57,7 +57,6 @@ class Process(object):
         btn = self.next_stairs[0]
         btn.update_btn()
 
-
     def set_temp_for_terminating(self, temp_for_terminating):
         if self.elevator_direct > 0:
             return temp_for_terminating + 1
@@ -89,13 +88,13 @@ class Process(object):
         self.up_bigger, self.up_smaller, self.down_bigger, self.down_smaller = [], [], [], []
         for btn in self.next_stairs:
             info = btn.get_btn_info()
-            if info.direct == UP:
-                if info.stair >= self.elevator_place_now:
+            if info.stair >= self.elevator_place_now:
+                if info.direct == UP:
                     self.up_bigger.append(btn)
-                else:
-                    self.up_smaller.append(btn)
-            if info.direct == DOWN:
-                if info.stair > self.elevator_place_now:
+                if info.direct == DOWN:
                     self.down_bigger.insert(0, btn)
-                else:
+            else:
+                if info.direct == UP:
+                    self.up_smaller.append(btn)
+                if info.direct == DOWN:
                     self.down_smaller.insert(0, btn)
