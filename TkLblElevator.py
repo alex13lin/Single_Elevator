@@ -14,8 +14,7 @@ class TkLblElevator(object):
 
     def set_stairs_lbl(self) -> None:
         for stair in range(HIGHEST_STAIR):
-            self.__stairs_lbl = tk.Label(text=f"{stair + 1}F", font=("Arial", 15), height=2,
-                                         width=3)
+            self.__stairs_lbl = tk.Label(text=f"{stair + 1}F", font=("Arial", 15), height=2, width=3)
             self.__stairs_lbl.place(x=5, y=INIT_PLACE_Y - INIT_PLACE_Y_SPACE * stair)
 
     def __set_elevator_place_lbl(self) -> None:
