@@ -31,9 +31,9 @@ class ConcreteSubject(Subject):
     def notify(self) -> None:
         pass
 
-    def create_button(self):
+    def create_buttons(self):
         for observer in self._observers:
-            observer.create_button()
+            observer.create_buttons()
 
     def print_all_buttons(self):
         for observer in self._observers:

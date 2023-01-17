@@ -16,7 +16,7 @@ class BtnsForElevatorSys(IBtnForElevator):
         self.func_name = BtnsForElevatorSys.__name__
         self.all_buttons_info = []
 
-    def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
+    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         self.log.log()
         for stair in range(HIGHEST_STAIR):
             btn_info.stair = stair
@@ -33,7 +33,7 @@ class BtnsInElevator(BtnsForElevatorSys):
     def __init__(self):
         super().__init__()
 
-    def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
+    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
         btn_info.the_type = "elevator"
         btn_info.direct = UNASSIGNED
@@ -45,7 +45,7 @@ class BtnsInElevator(BtnsForElevatorSys):
         btn_style.x = 400
         btn_style.y = 600
         btn_style.y_space = 60
-        super().create_button(btn_info, btn_style)
+        super().create_buttons(btn_info, btn_style)
 
 
 # 樓層的向上按鈕
@@ -53,7 +53,7 @@ class BtnsOnStairUp(BtnsForElevatorSys):
     def __init__(self):
         super().__init__()
 
-    def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
+    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
         btn_info.the_type = "stair"
         btn_info.direct = 1
@@ -65,7 +65,7 @@ class BtnsOnStairUp(BtnsForElevatorSys):
         btn_style.x = 50
         btn_style.y = 580
         btn_style.y_space = 100
-        super().create_button(btn_info, btn_style)
+        super().create_buttons(btn_info, btn_style)
 
 
 # 樓層的向下按鈕
@@ -73,7 +73,7 @@ class BtnsOnStairDown(BtnsForElevatorSys):
     def __init__(self):
         super().__init__()
 
-    def create_button(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
+    def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         btn_info = BtnElevatorInfo() if btn_info is None else btn_info
         btn_info.the_type = "stair"
         btn_info.direct = DOWN
@@ -85,4 +85,4 @@ class BtnsOnStairDown(BtnsForElevatorSys):
         btn_style.x = 120
         btn_style.y = 580
         btn_style.y_space = 100
-        super().create_button(btn_info, btn_style)
+        super().create_buttons(btn_info, btn_style)

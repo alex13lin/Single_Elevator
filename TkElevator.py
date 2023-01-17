@@ -4,7 +4,7 @@ from log import Log
 
 IS_PRESSED = True
 NOT_PRESSED = False
-UNASSIGNED = 0
+UNASSIGNED = 1000
 
 
 class BtnElevator(object):
@@ -27,7 +27,7 @@ class BtnElevator(object):
         self.log.log()
         self.btn_info.state = False
         self.btn_info.direct = btn_info.direct
-        self.btn_info.stair = btn_info.stair + 1
+        self.btn_info.stair = btn_info.stair
         self.btn_info.the_type = btn_info.the_type
 
     def update_btn(self):

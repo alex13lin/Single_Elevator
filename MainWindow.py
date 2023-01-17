@@ -39,7 +39,7 @@ class MainWindow(tk.Tk):
 
     def start(self):
         self.attach_elevator_subject()
-        self.elevator_subject.create_button()
+        self.elevator_subject.create_buttons()
         self.run()
 
     def run(self):
