@@ -8,9 +8,9 @@ STOP = 0
 
 class Process(object):
     def __init__(self):
-        self.btns_in_elevator_info = None
-        self.btns_on_stair_up_info = None
-        self.btns_on_stair_down_info = None
+        self.btns_in_elevator = None
+        self.btns_on_stair_up = None
+        self.btns_on_stair_down = None
 
         self.next_stairs = []
         self.up_bigger, self.up_smaller, self.down_bigger, self.down_smaller = [], [], [], []
@@ -27,9 +27,9 @@ class Process(object):
     def run(self):
         print("self.elevator_place_now:", self.elevator_place_now + 1)
         self.next_stairs = []
-        self.set_next_stairs(self.btns_in_elevator_info)
-        self.set_next_stairs(self.btns_on_stair_up_info)
-        self.set_next_stairs(self.btns_on_stair_down_info)
+        self.set_next_stairs(self.btns_in_elevator)
+        self.set_next_stairs(self.btns_on_stair_up)
+        self.set_next_stairs(self.btns_on_stair_down)
         self.sort_next_stairs()
         self.set_elevator_place()
 
@@ -62,8 +62,9 @@ class Process(object):
             return temp_for_terminating + 1
         return temp_for_terminating
 
-    def set_next_stairs(self, infos):
-        for info in infos:
+    def set_next_stairs(self, btns):
+        for btn in btns:
+            info = btn.get_btn_info()
             if info.state:
                 info.direct = self.set_direct(info.stair) if info.direct == UNASSIGNED else info.direct
                 self.next_stairs.append(info)

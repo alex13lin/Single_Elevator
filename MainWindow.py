@@ -43,9 +43,9 @@ class MainWindow(tk.Tk):
         self.run()
 
     def run(self):
-        self.process.btns_in_elevator_info = self.btns_in_elevator.get_all_buttons_info()
-        self.process.btns_on_stair_up_info = self.btns_on_stair_up.get_all_buttons_info()
-        self.process.btns_on_stair_down_info = self.btns_on_stair_down.get_all_buttons_info()
+        self.process.btns_in_elevator = self.btns_in_elevator.get_all_buttons()
+        self.process.btns_on_stair_up = self.btns_on_stair_up.get_all_buttons()
+        self.process.btns_on_stair_down = self.btns_on_stair_down.get_all_buttons()
         self.process.run()
 
 

@@ -14,7 +14,7 @@ class BtnsForElevatorSys(IBtnForElevator):
     def __init__(self):
         self.log = Log()
         self.func_name = BtnsForElevatorSys.__name__
-        self.all_buttons_info = []
+        self.all_buttons = []
 
     def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
         self.log.log()
@@ -22,10 +22,10 @@ class BtnsForElevatorSys(IBtnForElevator):
             btn_info.stair = stair
             btn_elevator = BtnElevator()
             btn_elevator.create_button(btn_info, btn_style)
-            self.all_buttons_info.append(btn_elevator.get_btn_info())
+            self.all_buttons.append(btn_elevator)
 
-    def get_all_buttons_info(self):
-        return self.all_buttons_info
+    def get_all_buttons(self):
+        return self.all_buttons
 
 
 # 電梯內按鈕class

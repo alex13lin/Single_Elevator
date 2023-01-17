@@ -9,5 +9,5 @@ class IBtnForElevator(object, metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get_all_buttons_info(self):
+    def get_all_buttons(self):
         pass

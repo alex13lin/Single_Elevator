@@ -37,8 +37,8 @@ class ConcreteSubject(Subject):
 
     def print_all_buttons(self):
         for observer in self._observers:
-            print(observer.get_all_buttons_info())
+            print(observer.get_all_buttons())
 
     def get_all_buttons(self):
         for observer in self._observers:
-            print(observer.get_all_buttons_info())
+            print(observer.get_all_buttons())
