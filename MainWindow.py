@@ -24,7 +24,7 @@ class MainWindow(tk.Tk):
 
     def refresh_window(self):
         self.process.process_run()
-        self.lbl_elevator.set_elevator_place_label(self.process.elevator_place_now, self.process.elevator_place_y)
+        self.lbl_elevator.set_elevator_place_label(self.process.elevator.place_now, self.process.elevator.place_y)
         self.after(10, self.refresh_window)
 
     def attach_elevator_subject(self):
@@ -45,7 +45,7 @@ class MainWindow(tk.Tk):
         pass
 
     def set_label(self):
-        self.lbl_elevator.set_elevator_place_label(self.process.elevator_place_now, self.process.elevator_place_y)
+        self.lbl_elevator.set_elevator_place_label(self.process.elevator.place_now, self.process.elevator.place_y)
         self.lbl_elevator.set_stairs_label()
 
 

@@ -1,3 +1,12 @@
+class Elevator(object):
+    direct: int
+    direct_former: int
+    place_now: float
+    place_next: int
+    next_temp: int
+    place_y: float
+
+
 class BtnElevatorInfo(object):
     stair: int
     direct: str
