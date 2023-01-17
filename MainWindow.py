@@ -23,7 +23,7 @@ class MainWindow(tk.Tk):
         self.mainloop()
 
     def refresh_window(self):
-        self.run()
+        self.process.process_run()
         self.lbl_elevator.set_elevator_place_label(self.process.elevator_place_now, self.process.elevator_place_y)
         self.after(10, self.refresh_window)
 
@@ -36,14 +36,13 @@ class MainWindow(tk.Tk):
         self.attach_elevator_subject()
         self.elevator_subject.create_buttons()
         self.set_label()
-        self.run()
-
-    def run(self):
-        # print(self.btns_in_elevator.get_all_buttons()[0].get_btn_info().state)
         self.process.btns_in_elevator = self.btns_in_elevator.get_all_buttons()
         self.process.btns_on_stair_up = self.btns_on_stair_up.get_all_buttons()
         self.process.btns_on_stair_down = self.btns_on_stair_down.get_all_buttons()
-        self.process.process_run()
+        self.run()
+
+    def run(self):
+        pass
 
     def set_label(self):
         self.lbl_elevator.set_elevator_place_label(self.process.elevator_place_now, self.process.elevator_place_y)
