@@ -15,21 +15,20 @@ UNASSIGNED = 0
 
 class BtnsForElevatorSys(IBtnForElevator):
     def __init__(self):
-        self.log = Log()
-        self.func_name = BtnsForElevatorSys.__name__
-        self.all_buttons = []
+        self.__log = Log()
+        self.__all_buttons = []
 
     def create_buttons(self, btn_info: BtnElevatorInfo = None, btn_style: BtnElevatorStyle = None):
-        self.log.log()
+        self.__log.log()
         for stair in range(LOWEST_STAIR, HIGHEST_STAIR + 1):
             btn_info.stair = stair
             btn_info.position = "top" if stair == HIGHEST_STAIR else ("bottom" if stair == LOWEST_STAIR else "")
             btn_elevator = TkBtnElevator()
             btn_elevator.create_button(btn_info, btn_style)
-            self.all_buttons.append(btn_elevator)
+            self.__all_buttons.append(btn_elevator)
 
     def get_all_buttons(self):
-        return self.all_buttons
+        return self.__all_buttons
 
 
 # 電梯內按鈕class

@@ -11,44 +11,44 @@ class MainWindow(tk.Tk):
         self.title("Elevator")
         self.geometry('500x700+1000+20')
         self.resizable(False, False)
-        self.process = Process()
-        self.process.start()
-        self.btns_in_elevator = BtnsInElevator()
-        self.btns_on_stair_up = BtnsOnStairUp()
-        self.btns_on_stair_down = BtnsOnStairDown()
-        self.elevator_subject = ConcreteSubject()
-        self.lbl_elevator = TkLblElevator()
+        self.__process = Process()
+        self.__process.start()
+        self.__btns_in_elevator = BtnsInElevator()
+        self.__btns_on_stair_up = BtnsOnStairUp()
+        self.__btns_on_stair_down = BtnsOnStairDown()
+        self.__elevator_subject = ConcreteSubject()
+        self.__lbl_elevator = TkLblElevator()
         self.start()
-        self.after(10, self.refresh_window)
+        self.after(10, self.__refresh_window)
         self.mainloop()
 
-    def refresh_window(self) -> None:
-        self.process.process_run()
-        self.set_lbl_elevator()
-        self.after(10, self.refresh_window)
+    def __refresh_window(self) -> None:
+        self.__process.process_run()
+        self.__set_lbl_elevator()
+        self.after(10, self.__refresh_window)
 
     def start(self) -> None:
-        self.attach_elevator_subject()
-        self.elevator_subject.create_buttons()
-        self.process.set_all_buttons(self.elevator_subject.get_all_buttons())
-        self.set_label()
+        self.__attach_elevator_subject()
+        self.__elevator_subject.create_buttons()
+        self.__process.set_all_buttons(self.__elevator_subject.get_all_buttons())
+        self.__set_all_lbl()
 
-    def attach_elevator_subject(self) -> None:
-        self.elevator_subject.attach(self.btns_in_elevator)
-        self.elevator_subject.attach(self.btns_on_stair_up)
-        self.elevator_subject.attach(self.btns_on_stair_down)
+    def __attach_elevator_subject(self) -> None:
+        self.__elevator_subject.attach(self.__btns_in_elevator)
+        self.__elevator_subject.attach(self.__btns_on_stair_up)
+        self.__elevator_subject.attach(self.__btns_on_stair_down)
 
     def run(self) -> None:
         pass
 
-    def set_label(self) -> None:
-        self.set_lbl_elevator()
-        self.lbl_elevator.set_stairs_label()
+    def __set_all_lbl(self) -> None:
+        self.__set_lbl_elevator()
+        self.__lbl_elevator.set_stairs_lbl()
 
-    def set_lbl_elevator(self) -> None:
-        place_now = self.process.get_elevator_place_now()
-        place_y = self.process.get_elevator_place_y()
-        self.lbl_elevator.set_elevator_place_label(place_now, place_y)
+    def __set_lbl_elevator(self) -> None:
+        place_now = self.__process.get_elevator_place_now()
+        place_y = self.__process.get_elevator_place_y()
+        self.__lbl_elevator.set_elevator_place_lbl(place_now, place_y)
 
 
 if __name__ == '__main__':
