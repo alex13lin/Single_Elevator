@@ -2,7 +2,6 @@ import tkinter as tk
 from model import BtnElevatorInfo, BtnElevatorStyle
 from log import Log
 
-
 IS_PRESSED = True
 NOT_PRESSED = False
 UNASSIGNED = 1000
@@ -54,4 +53,3 @@ class TkBtnElevator(object):
             self.btn.config(state=tk.DISABLED)
         if self.btn_info.the_type == "stair_down" and self.btn_info.position == "bottom":
             self.btn.config(state=tk.DISABLED)
-
