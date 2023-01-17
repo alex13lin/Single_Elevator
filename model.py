@@ -5,6 +5,7 @@ class Elevator(object):
     place_next: int
     next_temp: int
     place_y: float
+    run_times = int(0)
 
 
 class BtnElevatorInfo(object):

@@ -17,11 +17,11 @@ class SortNextStairs(object):
         self.classify_next_stairs()
         self.sort_part_of_next_stairs()
         if self.elevator.direct is UP or self.direct_exception(UP):
-            self.next_stairs = self.up_bigger + self.down_bigger + self.down_smaller + self.up_smaller
+            self.next_stairs.clear()
+            self.next_stairs.extend(self.up_bigger + self.down_bigger + self.down_smaller + self.up_smaller)
         elif self.elevator.direct is DOWN or self.direct_exception(DOWN):
-            self.next_stairs = self.down_smaller + self.up_smaller + self.up_bigger + self.down_bigger
-        print(f"self.down_smaller: {self.down_smaller}, self.up_smaller: {self.up_smaller}")
-        print(f"self.down_bigger: {self.down_bigger}, self.up_bigger: {self.up_bigger}")
+            self.next_stairs.clear()
+            self.next_stairs.extend(self.down_smaller + self.up_smaller + self.up_bigger + self.down_bigger)
 
     def classify_next_stairs(self):
         self.up_bigger, self.up_smaller, self.down_bigger, self.down_smaller = [], [], [], []

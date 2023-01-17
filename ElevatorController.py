@@ -35,20 +35,13 @@ class Process(Thread):
 
         self.elevator.direct = STOP
         self.elevator.direct_former = STOP
-        self.running = 1
 
     def process_run(self):
-        self.running += 1
-        print("\n", self.running)
-        self.next_stairs = []
+        self.elevator.run_times += 1
+        self.next_stairs.clear()
         self.set_next_stairs(self.btns_in_elevator)
         self.set_next_stairs(self.btns_on_stair_up)
         self.set_next_stairs(self.btns_on_stair_down)
-        print("self.next_stairs", self.next_stairs)
-        print("self.elevator.place_next:", self.elevator.place_next + 1)
-        print("self.elevator.place_now:", self.elevator.place_now + 1)
-        print("self.elevator.direct:", self.elevator.direct)
-        print("self.elevator.direct_former:", self.elevator.direct_former)
         self.sort_next_stairs.run(self.next_stairs, self.elevator)
         self.set_elevator_place()
 
@@ -58,11 +51,6 @@ class Process(Thread):
             self.elevator.place_next = self.next_stairs[0].get_btn_info().stair
             self.elevator.direct = self.set_direct(self.elevator.place_next)
             self.temp_for_terminating = int(self.elevator.place_now)
-            print("self.next_stairs", self.next_stairs)
-            print("self.elevator.place_next:", self.elevator.place_next + 1)
-            print("self.elevator.place_now:", self.elevator.place_now + 1)
-            print("self.elevator.direct:", self.elevator.direct)
-            print("self.elevator.direct_former:", self.elevator.direct_former)
         elif len(self.next_stairs) == 0:
             self.set_temp_for_terminating()
             self.elevator.direct = self.set_direct(self.elevator.place_next)
@@ -75,7 +63,6 @@ class Process(Thread):
 
     def arrive_next_stair(self):
         if self.elevator.place_now == self.elevator.place_next and len(self.next_stairs) > 0:
-            print("arrive_next_stair")
             btn = self.next_stairs[0]
             btn.update_btn()
 
@@ -99,3 +86,5 @@ class Process(Thread):
             return DOWN
         else:
             return STOP
+
+
