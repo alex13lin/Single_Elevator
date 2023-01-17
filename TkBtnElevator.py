@@ -14,7 +14,7 @@ class TkBtnElevator(object):
         self.__btn_info.state = NOT_PRESSED
         self.__log = Log()
 
-    def create_button(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle):
+    def create_button(self, btn_info: BtnElevatorInfo, btn_style: BtnElevatorStyle) -> None:
         self.__log.log()
         self.__set_btn_info(btn_info)
         text = btn_info.stair + 1 if btn_style.text is None else btn_style.text
