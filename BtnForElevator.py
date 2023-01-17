@@ -13,7 +13,6 @@ UNASSIGNED = 0
 # 電梯按鈕abstract class
 
 
-
 class BtnsForElevatorSys(IBtnForElevator):
     def __init__(self):
         self.log = Log()
@@ -24,7 +23,7 @@ class BtnsForElevatorSys(IBtnForElevator):
         self.log.log()
         for stair in range(LOWEST_STAIR, HIGHEST_STAIR + 1):
             btn_info.stair = stair
-            btn_info.position = "top" if stair == HIGHEST_STAIR else("bottom" if stair == LOWEST_STAIR else "")
+            btn_info.position = "top" if stair == HIGHEST_STAIR else ("bottom" if stair == LOWEST_STAIR else "")
             btn_elevator = TkBtnElevator()
             btn_elevator.create_button(btn_info, btn_style)
             self.all_buttons.append(btn_elevator)

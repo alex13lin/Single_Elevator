@@ -25,7 +25,6 @@ class Process(object):
         self.elevator_direct = STOP
 
     def run(self):
-        # print("self.elevator_place_now:", self.elevator_place_now + 1)
         self.next_stairs = []
         self.set_next_stairs(self.btns_in_elevator)
         self.set_next_stairs(self.btns_on_stair_up)
@@ -41,8 +40,7 @@ class Process(object):
 
     def set_elevator_place(self):
         if len(self.next_stairs) > 0:
-            info = self.next_stairs[0].get_btn_info()
-            self.elevator_place_next = info.stair
+            self.elevator_place_next = self.next_stairs[0].get_btn_info().stair
             self.elevator_direct = self.set_direct(self.elevator_place_next)
             self.temp_for_terminating = int(self.elevator_place_now)
             if self.elevator_direct == 0:
@@ -79,7 +77,7 @@ class Process(object):
 
     def sort_next_stairs(self):
         self.classify_next_stairs()
-        if self.elevator_direct is UP or STOP:
+        if self.elevator_direct is UP:
             self.next_stairs = self.up_bigger + self.down_bigger + self.down_smaller + self.up_smaller
         elif self.elevator_direct is DOWN:
             self.next_stairs = self.down_smaller + self.up_smaller + self.up_bigger + self.down_bigger
@@ -88,13 +86,13 @@ class Process(object):
         self.up_bigger, self.up_smaller, self.down_bigger, self.down_smaller = [], [], [], []
         for btn in self.next_stairs:
             info = btn.get_btn_info()
-            if info.stair >= self.elevator_place_now:
-                if info.direct == UP:
+            if info.direct == UP:
+                if info.stair >= self.elevator_place_now:
                     self.up_bigger.append(btn)
-                if info.direct == DOWN:
-                    self.down_bigger.insert(0, btn)
-            else:
-                if info.direct == UP:
+                else:
                     self.up_smaller.append(btn)
-                if info.direct == DOWN:
+            if info.direct == DOWN:
+                if info.stair > self.elevator_place_now:
+                    self.down_bigger.insert(0, btn)
+                else:
                     self.down_smaller.insert(0, btn)

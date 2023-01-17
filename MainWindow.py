@@ -1,6 +1,7 @@
 from BtnForElevator import BtnsInElevator, BtnsOnStairUp, BtnsOnStairDown
 from ObserverPattern import ConcreteSubject
 from ElevatorController import Process
+from TkLblElevator import TkLblElevator
 import tkinter as tk
 
 
@@ -18,11 +19,9 @@ class MainWindow(tk.Tk):
         self.btns_on_stair_down = BtnsOnStairDown()
         self.elevator_subject = ConcreteSubject()
 
-        self.start()
+        self.lbl_elevator = TkLblElevator()
 
-        a = 1
-        if a == 0:
-            return
+        self.start()
 
         self.after(10, self.refresh_window)
 
@@ -40,6 +39,7 @@ class MainWindow(tk.Tk):
     def start(self):
         self.attach_elevator_subject()
         self.elevator_subject.create_buttons()
+        self.set_label()
         self.run()
 
     def run(self):
@@ -48,17 +48,11 @@ class MainWindow(tk.Tk):
         self.process.btns_on_stair_up = self.btns_on_stair_up.get_all_buttons()
         self.process.btns_on_stair_down = self.btns_on_stair_down.get_all_buttons()
         self.process.run()
+        self.lbl_elevator.set_elevator_place_label(self.process.elevator_place_now, self.process.elevator_place_y)
 
     def set_label(self):
-        self.elevator_place_label = tk.Label(font=("Arial", 18), bg="gray", height=3, width=7)
-        self.set_elevator_place_label()
-        self.set_stairs_label()
-
-
-
-    def set_elevator_place_label(self):
-        self.elevator_place_label.config(text=math.floor(self.process.elevator_place_now))
-        self.elevator_place_label.place(x=200, y=self.process.elevator_place_y)
+        self.lbl_elevator.set_elevator_place_label(self.process.elevator_place_now, self.process.elevator_place_y)
+        self.lbl_elevator.set_stairs_label()
 
 
 if __name__ == '__main__':
